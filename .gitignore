@@ -1,0 +1,15 @@
+# Ignore environment files
+.env
+.env.*
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore Java compiled files
+*.class
+target/
+
+# Ignore folders
+node_modules/
+venv/
