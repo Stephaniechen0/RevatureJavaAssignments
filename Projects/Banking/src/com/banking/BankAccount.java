@@ -10,11 +10,11 @@ public class BankAccount {
 	protected String acct_type;
 	protected ArrayList<String> transactions = new ArrayList<>();
 	
-	public BankAccount(int cust_id, String acct_type) {
+	public BankAccount(int cust_id, String acct_type, double balance) {
 		this.acct_num = new_num++;
 		this.cust_id = cust_id;
 		this.acct_type = acct_type;
-		this.balance = 0;
+		this.balance = balance;
 	}
 	
 	public void depositMoney(double amount) {
@@ -28,6 +28,10 @@ public class BankAccount {
 		transactions.add("Withdrew $" + amount + ". Balance is now $" + balance + ".");
 		System.out.println("Withdrew $" + amount + ". Balance is now $" + balance + ".");
 	}
+	
+	public ArrayList<String> getTransactions() {
+		return transactions;
+	}
 
 	public int getCust_id() {
 		return cust_id;
@@ -36,12 +40,12 @@ public class BankAccount {
 	public int getAcct_num() {
 		return acct_num;
 	}
+	
+	public String getAcct_type() {
+		return acct_type;
+	}
 
 	public double getBalance() {
 		return balance;
-	}
-	
-	public ArrayList<String> getTransactions() {
-		return transactions;
 	}
 }

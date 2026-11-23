@@ -96,12 +96,40 @@ public class BankingManagementSystem {
             return;
         }
         else if (accountType.equals("savings")) {
-        	SavingsAccount b = new SavingsAccount(cust_id, "Savings");
+        	double balance;
+        	try {
+    			System.out.println("Enter starting balance: ");
+    			balance = Double.parseDouble(scanner.nextLine().trim());
+    		} catch (Exception e) {
+    			System.out.println("Input must be double, invalid starting balance.");
+    			return;
+    		}
+        	
+        	if (balance < 100) {
+        		System.out.println("Starting balance must be at least $100.");
+        		return;
+        	}
+        	
+        	SavingsAccount b = new SavingsAccount(cust_id, "Savings", balance);
         	accounts.add(b);
     		System.out.println("Bank account " + b.getAcct_num() + " (Savings) has been created for customer " + b.getCust_id() + ".");
         }
         else if (accountType.equals("current")) {
-        	CurrentAccount b = new CurrentAccount(cust_id, "Current");
+        	double balance;
+        	try {
+    			System.out.println("Enter starting balance: ");
+    			balance = Double.parseDouble(scanner.nextLine().trim());
+    		} catch (Exception e) {
+    			System.out.println("Input must be double, invalid starting balance.");
+    			return;
+    		}
+        	
+        	if (balance < 0) {
+        		System.out.println("Starting balance must be at least $0.");
+        		return;
+        	}
+        	
+        	CurrentAccount b = new CurrentAccount(cust_id, "Current", balance);
         	accounts.add(b);
     		System.out.println("Bank account " + b.getAcct_num() + " (Current) has been created for customer " + b.getCust_id() + ".");
         }
@@ -203,8 +231,11 @@ public class BankingManagementSystem {
 				if (withdraw <= 0) {
 					System.out.println("Amount must be greater than 0.");
 				}
-				else if (a.getBalance() - withdraw < 0) {
+				else if (a.getAcct_type() == "Current" && a.getBalance() - withdraw < 0) {
 					System.out.println("Remaining balance must be greater than 0 after withdrawal.");
+				}
+				else if (a.getAcct_type() == "Savings" && a.getBalance() - withdraw < 100) {
+					System.out.println("Remaining balance must be greater than 100 after withdrawal.");
 				}
 				else {
 					a.withdrawMoney(withdraw);
@@ -290,8 +321,11 @@ public class BankingManagementSystem {
 						if (transfer <= 0) {
 							System.out.println("Amount must be greater than 0.");
 						}
-						else if (a.getBalance() - transfer < 0) {
-							System.out.println("Remaining balance must be greater than 0 after withdrawal.");							
+						else if (a.getAcct_type() == "Current" && a.getBalance() - transfer < 0) {
+							System.out.println("Remaining balance must be greater than 0 after withdrawal.");
+						}
+						else if (a.getAcct_type() == "Savings" && a.getBalance() - transfer < 100) {
+							System.out.println("Remaining balance must be greater than 100 after withdrawal.");
 						}
 						else {
 							a.withdrawMoney(transfer);
