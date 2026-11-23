@@ -33,16 +33,32 @@ public class BankAccount {
 		return transactions;
 	}
 
+	public void setCust_id(int cust_id) {
+		this.cust_id = cust_id;
+	}
+
 	public int getCust_id() {
 		return cust_id;
+	}
+
+	public void setAcct_num(int acct_num) {
+		this.acct_num = acct_num;
 	}
 
 	public int getAcct_num() {
 		return acct_num;
 	}
 	
+	public void setAcct_type(String acct_type) {
+		this.acct_type = acct_type;
+	}
+	
 	public String getAcct_type() {
 		return acct_type;
+	}
+	
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
 
 	public double getBalance() {
