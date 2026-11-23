@@ -31,7 +31,7 @@ public class BankingManagementSystem {
 			try {
 				choice = Integer.parseInt(scanner.nextLine().trim());
 			} catch (Exception e) {
-				System.out.println("Invalid choice, choice must be a number.\n");
+				System.out.println("Invalid choice, choice must be a number.");
 		        continue;  
 			}
 			
@@ -39,7 +39,7 @@ public class BankingManagementSystem {
 				return choice;
 			}
 			else {
-				System.out.println("Invalid choice, choose a number between 1-9.\n");
+				System.out.println("Invalid choice, choose a number between 1-9.");
 			}
 		}		
 	}
@@ -59,7 +59,7 @@ public class BankingManagementSystem {
 		
 		Customer a1 = new Customer(name, email, phone);
 		customers.add(a1);
-		System.out.println(name + " has been added with customer ID " + a1.getCust_id() + ".\n");
+		System.out.println(name + " has been added with customer ID " + a1.getCust_id() + ".");
 	}
 	
 	// 2
@@ -71,7 +71,7 @@ public class BankingManagementSystem {
 			System.out.println("Enter customer ID: ");
 			cust_id = Integer.parseInt(scanner.nextLine().trim());
 		} catch (Exception e) {
-			System.out.println("Input must be integer, invalid customer_id.\n");
+			System.out.println("Input must be integer, invalid customer_id.");
 			return;
 		}
 		
@@ -84,7 +84,7 @@ public class BankingManagementSystem {
 		}
 		
 		if (!found) {
-			System.out.println("Customer with ID " + cust_id + " not found.\n");
+			System.out.println("Customer with ID " + cust_id + " not found.");
 			return;
 		}
 		
@@ -92,18 +92,18 @@ public class BankingManagementSystem {
 		accountType = scanner.nextLine().trim().toLowerCase();
 
         if (!accountType.equals("savings") && !accountType.equals("current")) {
-            System.out.println("Account type must be 'savings' or 'checking'.\n");
+            System.out.println("Account type must be Savings or Current.");
             return;
         }
         else if (accountType.equals("savings")) {
-        	SavingsBankAccount b = new SavingsBankAccount(cust_id);
+        	SavingsAccount b = new SavingsAccount(cust_id, "Savings");
         	accounts.add(b);
-    		System.out.println("Bank account " + b.getAcct_num() + " (" + accountType + ") has been created for customer " + b.getCust_id() + ".\n");
+    		System.out.println("Bank account " + b.getAcct_num() + " (Savings) has been created for customer " + b.getCust_id() + ".");
         }
-        else if (accountType.equals("savings")) {
-        	CurrentBankAccount b = new CurrentBankAccount(cust_id);
+        else if (accountType.equals("current")) {
+        	CurrentAccount b = new CurrentAccount(cust_id, "Current");
         	accounts.add(b);
-    		System.out.println("Bank account " + b.getAcct_num() + " (" + accountType + ") has been created for customer " + b.getCust_id() + ".\n");
+    		System.out.println("Bank account " + b.getAcct_num() + " (Current) has been created for customer " + b.getCust_id() + ".");
         }
 	}
 	
@@ -115,7 +115,7 @@ public class BankingManagementSystem {
 			System.out.println("Enter customer ID: ");
 			cust_id = Integer.parseInt(scanner.nextLine().trim());
 		} catch (Exception e) {
-			System.out.println("Input must be integer, invalid customer_id.\n");
+			System.out.println("Input must be integer, invalid customer_id.");
 			return;
 		}
 		
@@ -123,13 +123,13 @@ public class BankingManagementSystem {
 		for (Customer c : customers) {
 			if (c.getCust_id() == cust_id) {
 				found = true;
-				System.out.println(c.getCust_id() + " | " + c.getName() + " | " + c.getEmail() + " | " + c.getPhone() + "\n");
+				System.out.println(c.getCust_id() + " | " + c.getName() + " | " + c.getEmail() + " | " + c.getPhone());
 				return;
 			}
 		}
 		
 		if (!found) {
-			System.out.println("Customer with ID " + cust_id + " not found.\n");
+			System.out.println("Customer with ID " + cust_id + " not found.");
 		}
 	}
 	
@@ -141,7 +141,7 @@ public class BankingManagementSystem {
 			System.out.println("Enter bank account number: ");
 			acct_num = Integer.parseInt(scanner.nextLine().trim());
 		} catch (Exception e) {
-			System.out.println("Input must be integer, invalid bank account number.\n");
+			System.out.println("Input must be integer, invalid bank account number.");
 			return;
 		}
 		
@@ -155,12 +155,12 @@ public class BankingManagementSystem {
 					System.out.println("Enter amount to deposit: ");
 					deposit = Double.parseDouble(scanner.nextLine().trim());
 				} catch (Exception e) {
-					System.out.println("Input must be double, invalid amount to deposit.\n");
+					System.out.println("Input must be double, invalid amount to deposit.");
 					return;
 				}
 
 				if (deposit <= 0) {
-					System.out.println("Amount must be greater than 0.\n");
+					System.out.println("Amount must be greater than 0.");
 				}
 				else {
 					a.depositMoney(deposit);
@@ -170,7 +170,7 @@ public class BankingManagementSystem {
 		}
 		
 		if (!found) {
-			System.out.println("Bank account with ID " + acct_num + " not found.\n");
+			System.out.println("Bank account with ID " + acct_num + " not found.");
 		}
 	}
 	
@@ -182,7 +182,7 @@ public class BankingManagementSystem {
 			System.out.println("Enter bank account number: ");
 			acct_num = Integer.parseInt(scanner.nextLine().trim());
 		} catch (Exception e) {
-			System.out.println("Input must be integer, invalid bank account number.\n");
+			System.out.println("Input must be integer, invalid bank account number.");
 			return;
 		}
 		
@@ -196,15 +196,15 @@ public class BankingManagementSystem {
 					System.out.println("Enter amount to deposit: ");
 					withdraw = Double.parseDouble(scanner.nextLine().trim());
 				} catch (Exception e) {
-					System.out.println("Input must be double, invalid amount to withdraw.\n");
+					System.out.println("Input must be double, invalid amount to withdraw.");
 					return;
 				}
 
 				if (withdraw <= 0) {
-					System.out.println("Amount must be greater than 0.\n");
+					System.out.println("Amount must be greater than 0.");
 				}
 				else if (a.getBalance() - withdraw < 0) {
-					System.out.println("Remaining balance must be greater than 0 after withdrawal.\n");
+					System.out.println("Remaining balance must be greater than 0 after withdrawal.");
 				}
 				else {
 					a.withdrawMoney(withdraw);
@@ -214,7 +214,7 @@ public class BankingManagementSystem {
 		}
 		
 		if (!found) {
-			System.out.println("Bank account with ID " + acct_num + " not found.\n");
+			System.out.println("Bank account with ID " + acct_num + " not found.");
 		}
 	}
 	
@@ -226,7 +226,7 @@ public class BankingManagementSystem {
 			System.out.println("Enter bank account number: ");
 			acct_num = Integer.parseInt(scanner.nextLine().trim());
 		} catch (Exception e) {
-			System.out.println("Input must be integer, invalid bank account number.\n");
+			System.out.println("Input must be integer, invalid bank account number.");
 			return;
 		}
 		
@@ -234,13 +234,13 @@ public class BankingManagementSystem {
 		for (BankAccount a : accounts) {
 			if (a.getAcct_num() == acct_num) {
 				found = true;
-				System.out.println("Balance: $" + a.getBalance() + "\n");
+				System.out.println("Balance: $" + a.getBalance());
 				return;
 			}
 		}
 		
 		if (!found) {
-			System.out.println("Bank account with ID " + acct_num + " not found.\n");
+			System.out.println("Bank account with ID " + acct_num + " not found.");
 		}
 	}
 	
@@ -255,16 +255,16 @@ public class BankingManagementSystem {
 			System.out.println("Enter receiver account number: ");
 			receiver_num = Integer.parseInt(scanner.nextLine().trim());
 		} catch (Exception e) {
-			System.out.println("Input must be integer, invalid account number.\n");
+			System.out.println("Input must be integer, invalid account number.");
 			return;
 		}
 		
 		if (sender_num < 0 || receiver_num < 0) {
-			System.out.println("Account number invalid.\n");
+			System.out.println("Account number invalid.");
 			return;
 		}
 		else if (sender_num == receiver_num) {
-			System.out.println("Account numbers to receive and send cannot be the same.\n");
+			System.out.println("Account numbers to receive and send cannot be the same.");
 			return;
 		}
 		
@@ -283,15 +283,15 @@ public class BankingManagementSystem {
 							System.out.println("Enter amount to transfer: ");
 							transfer = Double.parseDouble(scanner.nextLine().trim());
 						} catch (Exception e) {
-							System.out.println("Input must be double, invalid amount to deposit.\n");
+							System.out.println("Input must be double, invalid amount to deposit.");
 							return;
 						}
 						
 						if (transfer <= 0) {
-							System.out.println("Amount must be greater than 0.\n");
+							System.out.println("Amount must be greater than 0.");
 						}
 						else if (a.getBalance() - transfer < 0) {
-							System.out.println("Remaining balance must be greater than 0 after withdrawal.\n");							
+							System.out.println("Remaining balance must be greater than 0 after withdrawal.");							
 						}
 						else {
 							a.withdrawMoney(transfer);
@@ -319,7 +319,7 @@ public class BankingManagementSystem {
 			System.out.println("Enter bank account number: ");
 			acct_num = Integer.parseInt(scanner.nextLine().trim());
 		} catch (Exception e) {
-			System.out.println("Input must be integer, invalid bank account number.\n");
+			System.out.println("Input must be integer, invalid bank account number.");
 			return;
 		}
 		
@@ -329,7 +329,7 @@ public class BankingManagementSystem {
 				found = true;
 				
 				if (a.getTransactions().isEmpty()) {
-					System.out.println("No transactions have been recorded.\n");
+					System.out.println("No transactions have been recorded.");
 					return;
 				}
 				
@@ -341,7 +341,7 @@ public class BankingManagementSystem {
 		}
 		
 		if (!found) {
-			System.out.println("Bank account with ID " + acct_num + " not found.\n");
+			System.out.println("Bank account with ID " + acct_num + " not found.");
 			return;
 		}
 	}
@@ -380,10 +380,9 @@ public class BankingManagementSystem {
 					exit = true;
 					break;
 			}
+			System.out.println();
 		}
-		
 		System.out.println("Thank you for banking with us.");
-		
 	}
 
 }
