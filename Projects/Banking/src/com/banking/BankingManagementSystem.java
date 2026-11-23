@@ -3,12 +3,12 @@ package com.banking;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class BankingManagementSystem {
+public class BankingManagementSystem implements BankOperations{
 	static Scanner scanner = new Scanner(System.in);
 	static ArrayList<Customer> customers = new ArrayList<>();
 	static ArrayList<BankAccount> accounts = new ArrayList<>();
 	
-	public static int printMenu() {
+	public int printMenu() {
 		while (true) {
 			System.out.println("====================================\r\n"
 					+ "       BANKING MANAGEMENT SYSTEM\r\n"
@@ -45,7 +45,7 @@ public class BankingManagementSystem {
 	}
 
 	// 1	
-	public static void createCustomer() {
+	public void createCustomer() {
 		String name = "";
 		String email = "";
 		String phone = "";
@@ -63,7 +63,7 @@ public class BankingManagementSystem {
 	}
 	
 	// 2
-	public static void createBankAccount() {
+	public void createBankAccount() {
 		int cust_id = 0;
 		String accountType = "";
 		
@@ -136,7 +136,7 @@ public class BankingManagementSystem {
 	}
 	
 	// 3
-	public static void viewCustomer() {
+	public void viewCustomer() {
 		int cust_id = 0;
 		
 		try {
@@ -162,7 +162,7 @@ public class BankingManagementSystem {
 	}
 	
 	// 4
-	public static void depositMoney() {
+	public void depositMoney() {
 		int acct_num = 0;
 		
 		try {
@@ -203,7 +203,7 @@ public class BankingManagementSystem {
 	}
 	
 	// 5
-	public static void withdrawMoney() {
+	public void withdrawMoney() {
 		int acct_num = 0;
 		
 		try {
@@ -250,7 +250,7 @@ public class BankingManagementSystem {
 	}
 	
 	// 6
-	public static void checkBalance() {
+	public void checkBalance() {
 		int acct_num = 0;
 		
 		try {
@@ -276,7 +276,7 @@ public class BankingManagementSystem {
 	}
 	
 	// 7
-	public static void fundTransfer() {
+	public void fundTransfer() {
 		int sender_num = 0;
 		int receiver_num = 0;
 		
@@ -346,7 +346,7 @@ public class BankingManagementSystem {
 	}
 	
 	// 8
-	public static void transactionHistory() {
+	public void transactionHistory() {
 		int acct_num = 0;
 		
 		try {
@@ -381,33 +381,34 @@ public class BankingManagementSystem {
 	}
 	
 	public static void main(String[] args) {
+		BankingManagementSystem bms = new BankingManagementSystem();
 		boolean exit = false;
 		while (exit != true) {
-			int choice = printMenu();
+			int choice = bms.printMenu();
 			switch (choice) {
 				case 1:
-					createCustomer();
+					bms.createCustomer();
 					break;
 				case 2:
-					createBankAccount();
+					bms.createBankAccount();
 					break;
 				case 3:
-					viewCustomer();
+					bms.viewCustomer();
 					break;
 				case 4:
-					depositMoney();
+					bms.depositMoney();
 					break;
 				case 5:
-					withdrawMoney();
+					bms.withdrawMoney();
 					break;
 				case 6:
-					checkBalance();
+					bms.checkBalance();
 					break;
 				case 7:
-					fundTransfer();
+					bms.fundTransfer();
 					break;
 				case 8:
-					transactionHistory();
+					bms.transactionHistory();
 					break;
 				case 9:
 					System.out.println("Exiting banking management system...");
