@@ -1,18 +1,18 @@
-package comday2;
+package com.day2;
 
 public class TestArrays {
 
 	public static void main(String[] args) {
 		int[] numbers = {1, 2, 3, 4, 5};
 		
-//		for (int num : numbers) {
-//			System.out.println(num);
-//		}
+		for (int num : numbers) {
+			System.out.println(num);
+		}
 		
-//		for (int i = 0; i < numbers.length; i++) {
-//			System.out.println(numbers[i]);
-//		}
-//		
+		for (int i = 0; i < numbers.length; i++) {
+			System.out.println(numbers[i]);
+		}
+		
 		int[][] matrix = {{1, 2, 3}, {4, 5, 6}};
 		for (int row = 0; row < 2; row++) {
 			for (int col = 0; col <  3; col++) {

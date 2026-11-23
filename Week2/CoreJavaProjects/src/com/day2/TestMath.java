@@ -1,4 +1,4 @@
-package comday2;
+package com.day2;
 
 public class TestMath {
 
@@ -20,9 +20,7 @@ public class TestMath {
 		Math.round(3.5);
 		Math.floor(3.5);
 		Math.random();
-		
-//		(int)(Math.random() * 6) + 1;
-		
+				
 		System.out.println(1 + 2 + "3");
 		System.out.println("1" + 2 + 3);
 	}

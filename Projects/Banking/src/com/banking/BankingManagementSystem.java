@@ -62,7 +62,6 @@ public class BankingManagementSystem {
 		System.out.println(name + " has been added with customer ID " + a1.getCust_id() + ".\n");
 	}
 	
-	
 	// 2
 	public static void createBankAccount() {
 		int cust_id = 0;
@@ -89,17 +88,23 @@ public class BankingManagementSystem {
 			return;
 		}
 		
-		System.out.println("Enter account type (Checking/Savings): ");
+		System.out.println("Enter account type (Current/Savings): ");
 		accountType = scanner.nextLine().trim().toLowerCase();
 
-        if (!accountType.equals("savings") && !accountType.equals("checking")) {
+        if (!accountType.equals("savings") && !accountType.equals("current")) {
             System.out.println("Account type must be 'savings' or 'checking'.\n");
             return;
         }
-		
-		BankAccount b1 = new BankAccount(cust_id, accountType);
-		accounts.add(b1);
-		System.out.println("Bank account " + b1.getAcct_num() + " (" + accountType + ") has been created for customer " + b1.getCust_id() + ".\n");
+        else if (accountType.equals("savings")) {
+        	SavingsBankAccount b = new SavingsBankAccount(cust_id);
+        	accounts.add(b);
+    		System.out.println("Bank account " + b.getAcct_num() + " (" + accountType + ") has been created for customer " + b.getCust_id() + ".\n");
+        }
+        else if (accountType.equals("savings")) {
+        	CurrentBankAccount b = new CurrentBankAccount(cust_id);
+        	accounts.add(b);
+    		System.out.println("Bank account " + b.getAcct_num() + " (" + accountType + ") has been created for customer " + b.getCust_id() + ".\n");
+        }
 	}
 	
 	// 3

@@ -1,4 +1,4 @@
-package comday2;
+package com.day2;
 
 public class TestControlFlowCondition {
 
