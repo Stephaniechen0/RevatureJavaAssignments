@@ -40,7 +40,6 @@ public class BankAccount {
 	public int getCust_id() {
 		return cust_id;
 	}
-
 	public void setAcct_num(int acct_num) {
 		this.acct_num = acct_num;
 	}
@@ -56,7 +55,7 @@ public class BankAccount {
 	public String getAcct_type() {
 		return acct_type;
 	}
-	
+		
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
