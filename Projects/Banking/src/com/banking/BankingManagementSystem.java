@@ -8,7 +8,7 @@ public class BankingManagementSystem implements BankOperations{
 	static ArrayList<Customer> customers = new ArrayList<>();
 	static ArrayList<BankAccount> accounts = new ArrayList<>();
 	
-	public int printMenu() {
+	public int printMenu() throws InvalidChoiceException {
 		while (true) {
 			System.out.println("====================================\r\n"
 					+ "       BANKING MANAGEMENT SYSTEM\r\n"
@@ -30,7 +30,7 @@ public class BankingManagementSystem implements BankOperations{
 			
 			try {
 				choice = Integer.parseInt(scanner.nextLine().trim());
-			} catch (Exception e) {
+			} catch (NumberFormatException e) {
 				System.out.println("Invalid choice, choice must be a number.");
 		        continue;  
 			}
@@ -39,7 +39,7 @@ public class BankingManagementSystem implements BankOperations{
 				return choice;
 			}
 			else {
-				System.out.println("Invalid choice, choose a number between 1-9.");
+				throw new InvalidChoiceException("Invalid choice, choose a number between 1-9.");
 			}
 		}		
 	}
@@ -63,14 +63,14 @@ public class BankingManagementSystem implements BankOperations{
 	}
 	
 	// 2
-	public void createBankAccount() {
+	public void createBankAccount() throws NotFoundException, InvalidAmountException {
 		int cust_id = 0;
 		String accountType = "";
 		
 		try {
 			System.out.println("Enter customer ID: ");
 			cust_id = Integer.parseInt(scanner.nextLine().trim());
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
 			System.out.println("Input must be integer, invalid customer_id.");
 			return;
 		}
@@ -84,8 +84,7 @@ public class BankingManagementSystem implements BankOperations{
 		}
 		
 		if (!found) {
-			System.out.println("Customer with ID " + cust_id + " not found.");
-			return;
+			throw new NotFoundException("Customer with ID " + cust_id + " not found.");
 		}
 		
 		System.out.println("Enter account type (Current/Savings): ");
@@ -100,14 +99,13 @@ public class BankingManagementSystem implements BankOperations{
         	try {
     			System.out.println("Enter starting balance: ");
     			balance = Double.parseDouble(scanner.nextLine().trim());
-    		} catch (Exception e) {
+    		} catch (NumberFormatException e) {
     			System.out.println("Input must be double, invalid starting balance.");
     			return;
     		}
         	
         	if (balance < 100) {
-        		System.out.println("Starting balance must be at least $100.");
-        		return;
+        		throw new InvalidAmountException("Starting balance must be at least $100.");
         	}
         	
         	SavingsAccount b = new SavingsAccount(cust_id, "Savings", balance);
@@ -119,14 +117,13 @@ public class BankingManagementSystem implements BankOperations{
         	try {
     			System.out.println("Enter starting balance: ");
     			balance = Double.parseDouble(scanner.nextLine().trim());
-    		} catch (Exception e) {
+    		} catch (NumberFormatException e) {
     			System.out.println("Input must be double, invalid starting balance.");
     			return;
     		}
         	
         	if (balance < 0) {
-        		System.out.println("Starting balance must be at least $0.");
-        		return;
+        		throw new InvalidAmountException("Starting balance must be at least $0.");
         	}
         	
         	CurrentAccount b = new CurrentAccount(cust_id, "Current", balance);
@@ -136,13 +133,13 @@ public class BankingManagementSystem implements BankOperations{
 	}
 	
 	// 3
-	public void viewCustomer() {
+	public void viewCustomer() throws NotFoundException {
 		int cust_id = 0;
 		
 		try {
 			System.out.println("Enter customer ID: ");
 			cust_id = Integer.parseInt(scanner.nextLine().trim());
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
 			System.out.println("Input must be integer, invalid customer_id.");
 			return;
 		}
@@ -157,18 +154,18 @@ public class BankingManagementSystem implements BankOperations{
 		}
 		
 		if (!found) {
-			System.out.println("Customer with ID " + cust_id + " not found.");
+			throw new NotFoundException("Customer with ID " + cust_id + " not found.");
 		}
 	}
 	
 	// 4
-	public void depositMoney() {
+	public void depositMoney() throws NotFoundException, InvalidAmountException {
 		int acct_num = 0;
 		
 		try {
 			System.out.println("Enter bank account number: ");
 			acct_num = Integer.parseInt(scanner.nextLine().trim());
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
 			System.out.println("Input must be integer, invalid bank account number.");
 			return;
 		}
@@ -182,13 +179,13 @@ public class BankingManagementSystem implements BankOperations{
 				try {
 					System.out.println("Enter amount to deposit: ");
 					deposit = Double.parseDouble(scanner.nextLine().trim());
-				} catch (Exception e) {
+				} catch (NumberFormatException e) {
 					System.out.println("Input must be double, invalid amount to deposit.");
 					return;
 				}
 
 				if (deposit <= 0) {
-					System.out.println("Amount must be greater than 0.");
+					throw new InvalidAmountException("Amount must be greater than 0.");
 				}
 				else {
 					a.depositMoney(deposit);
@@ -198,18 +195,18 @@ public class BankingManagementSystem implements BankOperations{
 		}
 		
 		if (!found) {
-			System.out.println("Bank account with ID " + acct_num + " not found.");
+			throw new NotFoundException("Bank account with ID " + acct_num + " not found.");
 		}
 	}
 	
 	// 5
-	public void withdrawMoney() {
+	public void withdrawMoney() throws NotFoundException, InvalidAmountException {
 		int acct_num = 0;
 		
 		try {
 			System.out.println("Enter bank account number: ");
 			acct_num = Integer.parseInt(scanner.nextLine().trim());
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
 			System.out.println("Input must be integer, invalid bank account number.");
 			return;
 		}
@@ -223,19 +220,19 @@ public class BankingManagementSystem implements BankOperations{
 				try {
 					System.out.println("Enter amount to deposit: ");
 					withdraw = Double.parseDouble(scanner.nextLine().trim());
-				} catch (Exception e) {
+				} catch (NumberFormatException e) {
 					System.out.println("Input must be double, invalid amount to withdraw.");
 					return;
 				}
 
 				if (withdraw <= 0) {
-					System.out.println("Amount must be greater than 0.");
+					throw new InvalidAmountException("Amount must be greater than 0.");
 				}
 				else if (a.getAcct_type() == "Current" && a.getBalance() - withdraw < 0) {
-					System.out.println("Remaining balance must be greater than 0 after withdrawal.");
+					throw new InvalidAmountException("Remaining balance must be greater than 0 after withdrawal.");
 				}
 				else if (a.getAcct_type() == "Savings" && a.getBalance() - withdraw < 100) {
-					System.out.println("Remaining balance must be greater than 100 after withdrawal.");
+					throw new InvalidAmountException("Remaining balance must be greater than 100 after withdrawal.");
 				}
 				else {
 					a.withdrawMoney(withdraw);
@@ -245,18 +242,18 @@ public class BankingManagementSystem implements BankOperations{
 		}
 		
 		if (!found) {
-			System.out.println("Bank account with ID " + acct_num + " not found.");
+			throw new NotFoundException("Bank account with ID " + acct_num + " not found.");
 		}
 	}
 	
 	// 6
-	public void checkBalance() {
+	public void checkBalance() throws NotFoundException {
 		int acct_num = 0;
 		
 		try {
 			System.out.println("Enter bank account number: ");
 			acct_num = Integer.parseInt(scanner.nextLine().trim());
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
 			System.out.println("Input must be integer, invalid bank account number.");
 			return;
 		}
@@ -271,12 +268,12 @@ public class BankingManagementSystem implements BankOperations{
 		}
 		
 		if (!found) {
-			System.out.println("Bank account with ID " + acct_num + " not found.");
+			throw new NotFoundException("Bank account with ID " + acct_num + " not found.");
 		}
 	}
 	
 	// 7
-	public void fundTransfer() {
+	public void fundTransfer() throws NotFoundException, InvalidAmountException {
 		int sender_num = 0;
 		int receiver_num = 0;
 		
@@ -285,14 +282,13 @@ public class BankingManagementSystem implements BankOperations{
 			sender_num = Integer.parseInt(scanner.nextLine().trim());
 			System.out.println("Enter receiver account number: ");
 			receiver_num = Integer.parseInt(scanner.nextLine().trim());
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
 			System.out.println("Input must be integer, invalid account number.");
 			return;
 		}
 		
 		if (sender_num < 0 || receiver_num < 0) {
-			System.out.println("Account number invalid.");
-			return;
+			throw new NotFoundException("Account number invalid.");
 		}
 		else if (sender_num == receiver_num) {
 			System.out.println("Account numbers to receive and send cannot be the same.");
@@ -313,19 +309,19 @@ public class BankingManagementSystem implements BankOperations{
 						try {
 							System.out.println("Enter amount to transfer: ");
 							transfer = Double.parseDouble(scanner.nextLine().trim());
-						} catch (Exception e) {
+						} catch (NumberFormatException e) {
 							System.out.println("Input must be double, invalid amount to deposit.");
 							return;
 						}
 						
 						if (transfer <= 0) {
-							System.out.println("Amount must be greater than 0.");
+							throw new InvalidAmountException("Amount must be greater than 0.");
 						}
 						else if (a.getAcct_type() == "Current" && a.getBalance() - transfer < 0) {
-							System.out.println("Remaining balance must be greater than 0 after withdrawal.");
+							throw new InvalidAmountException("Remaining balance must be greater than 0 after withdrawal.");
 						}
 						else if (a.getAcct_type() == "Savings" && a.getBalance() - transfer < 100) {
-							System.out.println("Remaining balance must be greater than 100 after withdrawal.");
+							throw new InvalidAmountException("Remaining balance must be greater than 100 after withdrawal.");
 						}
 						else {
 							a.withdrawMoney(transfer);
@@ -338,21 +334,21 @@ public class BankingManagementSystem implements BankOperations{
 		}
 		
 		if (!sender_found) {
-			System.out.println("Sender account number not found");
+			throw new NotFoundException("Sender account number not found");
 		}
 		else if (!receiver_found) {
-			System.out.println("Receiver account number not found");			
+			throw new NotFoundException("Receiver account number not found");			
 		}
 	}
 	
 	// 8
-	public void transactionHistory() {
+	public void transactionHistory() throws NotFoundException {
 		int acct_num = 0;
 		
 		try {
 			System.out.println("Enter bank account number: ");
 			acct_num = Integer.parseInt(scanner.nextLine().trim());
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
 			System.out.println("Input must be integer, invalid bank account number.");
 			return;
 		}
@@ -375,40 +371,82 @@ public class BankingManagementSystem implements BankOperations{
 		}
 		
 		if (!found) {
-			System.out.println("Bank account with ID " + acct_num + " not found.");
-			return;
+			throw new NotFoundException("Bank account with ID " + acct_num + " not found.");
 		}
 	}
 	
 	public static void main(String[] args) {
 		BankingManagementSystem bms = new BankingManagementSystem();
 		boolean exit = false;
+		int choice = 0;
 		while (exit != true) {
-			int choice = bms.printMenu();
+			try {
+				choice = bms.printMenu();
+			} catch (InvalidChoiceException e) {
+				System.out.println(e.getMessage() + "\n");
+				continue;
+			}
+				
 			switch (choice) {
 				case 1:
 					bms.createCustomer();
 					break;
 				case 2:
-					bms.createBankAccount();
+					try {
+						bms.createBankAccount();
+					} catch (NotFoundException e) {
+						System.out.println(e.getMessage());
+					} catch (InvalidAmountException e) {
+						System.out.println(e.getMessage());
+					}
 					break;
 				case 3:
-					bms.viewCustomer();
+					try {
+						bms.viewCustomer();
+					} catch (NotFoundException e) {
+						System.out.println(e.getMessage());
+					}
 					break;
 				case 4:
-					bms.depositMoney();
+					try {
+						bms.depositMoney();
+					} catch (NotFoundException e) {
+						System.out.println(e.getMessage());
+					} catch (InvalidAmountException e) {
+						System.out.println(e.getMessage());
+					}
 					break;
 				case 5:
-					bms.withdrawMoney();
+					try {
+						bms.withdrawMoney();
+					} catch (NotFoundException e) {
+						System.out.println(e.getMessage());
+					} catch (InvalidAmountException e) {
+						System.out.println(e.getMessage());
+					}
 					break;
 				case 6:
-					bms.checkBalance();
+					try {
+						bms.checkBalance();
+					} catch (NotFoundException e) {
+						System.out.println(e.getMessage());
+					}
 					break;
 				case 7:
-					bms.fundTransfer();
+					try {
+						bms.fundTransfer();
+					} catch (NotFoundException e) {
+						System.out.println(e.getMessage());
+					} catch (InvalidAmountException e) {
+						System.out.println(e.getMessage());
+					}
 					break;
 				case 8:
-					bms.transactionHistory();
+					try {
+						bms.transactionHistory();
+					} catch (NotFoundException e) {
+						System.out.println(e.getMessage());
+					}
 					break;
 				case 9:
 					System.out.println("Exiting banking management system...");
