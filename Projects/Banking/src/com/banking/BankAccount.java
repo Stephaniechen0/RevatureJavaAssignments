@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 public class BankAccount {
 	private static int new_num = 0;
-	protected int cust_id;
-	protected int acct_num;
-	protected double balance;
-	protected String acct_type;
-	protected ArrayList<String> transactions = new ArrayList<>();
+	private static int new_trans = 0;
+	int cust_id;
+	int acct_num;
+	double balance;
+	String acct_type;
+	ArrayList<Transaction> transactions = new ArrayList<>();
 	
 	public BankAccount(int cust_id, String acct_type, double balance) {
 		this.acct_num = new_num++;
@@ -19,17 +20,17 @@ public class BankAccount {
 	
 	public void depositMoney(double amount) {
 		balance += amount;
-		transactions.add("Deposited $" + amount + ". Balance is now $" + balance + ".");
-		System.out.println("Deposited $" + amount + ". Balance is now $" + balance + ".");
+		transactions.add(new Transaction(new_trans++, "Deposit", amount, balance));
+		System.out.println(transactions.get(transactions.size() - 1));
 	}
 	
 	public void withdrawMoney(double amount) {
 		balance -= amount;
-		transactions.add("Withdrew $" + amount + ". Balance is now $" + balance + ".");
-		System.out.println("Withdrew $" + amount + ". Balance is now $" + balance + ".");
+		transactions.add(new Transaction(new_trans++, "Withdrawal", amount, balance));
+		System.out.println(transactions.get(transactions.size() - 1));
 	}
 	
-	public ArrayList<String> getTransactions() {
+	public ArrayList<Transaction> getTransactions() {
 		return transactions;
 	}
 

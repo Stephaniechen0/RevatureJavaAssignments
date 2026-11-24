@@ -363,7 +363,7 @@ public class BankingManagementSystem implements BankOperations{
 					return;
 				}
 				
-				for (String t : a.getTransactions()) {
+				for (Transaction t : a.getTransactions()) {
 					System.out.println(t);
 				}
 				return;
