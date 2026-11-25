@@ -1,4 +1,4 @@
-package com.banking;
+package com.cts.model;
 
 public class Transaction {
 	private static int new_num = 0;

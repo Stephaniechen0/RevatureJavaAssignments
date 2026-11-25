@@ -1,4 +1,4 @@
-package com.banking;
+package com.cts.model;
 
 public class Customer {
 	private static int new_id = 0;

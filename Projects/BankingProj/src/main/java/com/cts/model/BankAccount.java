@@ -1,4 +1,4 @@
-package com.banking;
+package com.cts.model;
 
 import java.util.ArrayList;
 

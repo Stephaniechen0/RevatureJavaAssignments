@@ -1,4 +1,4 @@
-package com.banking;
+package com.cts;
 
 public interface BankOperations {
 	int printMenu();

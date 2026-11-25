@@ -1,4 +1,4 @@
-package com.banking;
+package com.cts.model;
 
 public class CurrentAccount extends BankAccount {
 	public CurrentAccount(int cust_id, String acct_type, double balance) {

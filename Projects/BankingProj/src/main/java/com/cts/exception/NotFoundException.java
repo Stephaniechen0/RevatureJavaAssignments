@@ -1,4 +1,4 @@
-package com.banking;
+package com.cts.exception;
 
 public class NotFoundException extends RuntimeException {
 	/**
